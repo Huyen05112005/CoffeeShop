@@ -7,13 +7,12 @@ namespace CoffeeShop.Controllers
     {
         private IShoppingCartRepository shoppingCartRepository;
         private IProductRepository productRepository;
+
         public ShoppingCartController(IShoppingCartRepository shoppingCartRepository, IProductRepository productRepository)
         {
             this.shoppingCartRepository = shoppingCartRepository;
             this.productRepository = productRepository;
-
         }
-
         public IActionResult Index()
         {
             var items = shoppingCartRepository.GetAllShoppingCartItems();
@@ -21,7 +20,6 @@ namespace CoffeeShop.Controllers
             ViewBag.TotalCart = shoppingCartRepository.GetShoppingCartTotal();
             return View(items);
         }
-
         public RedirectToActionResult AddToShoppingCart(int pId)
         {
             var product = productRepository.GetAllProducts().FirstOrDefault(p => p.Id == pId);
@@ -33,7 +31,6 @@ namespace CoffeeShop.Controllers
             }
             return RedirectToAction("Index");
         }
-
         public RedirectToActionResult RemoveFromShoppingCart(int pId)
         {
             var product = productRepository.GetAllProducts().FirstOrDefault(p => p.Id == pId);

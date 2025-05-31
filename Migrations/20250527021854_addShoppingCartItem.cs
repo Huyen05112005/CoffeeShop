@@ -16,9 +16,9 @@ namespace CoffeeShop.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Qty = table.Column<int>(type: "int", nullable: false),
-                    ShoppingCartId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: true),
+                    Cty = table.Column<int>(type: "int", nullable: false),
+                    ShoppingCartId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,8 +27,7 @@ namespace CoffeeShop.Migrations
                         name: "FK_ShoppingCartItems_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

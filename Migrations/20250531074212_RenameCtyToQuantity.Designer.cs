@@ -3,20 +3,23 @@ using CoffeeShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace CoffeeShop.Migrations
 {
-    [DbContext(typeof(CoffeeshopDbContext))]
-    partial class CoffeeshopDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(CoffeeShopDbContext))]
+    [Migration("20250531074212_RenameCtyToQuantity")]
+    partial class RenameCtyToQuantity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.4")
+                .HasAnnotation("ProductVersion", "9.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -102,6 +105,24 @@ namespace CoffeeShop.Migrations
                             IsTrendingProduct = false,
                             Name = "France",
                             Price = 35m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Detail = "Colombian coffee beans",
+                            ImageUrl = "https://insanelygoodrecipes.com/wp-content/uploads/2020/07/Cup-Of-Creamy-Coffee-1024x536.webp",
+                            IsTrendingProduct = true,
+                            Name = "Colombia",
+                            Price = 55m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Detail = "Ethiopian premium roast",
+                            ImageUrl = "https://insanelygoodrecipes.com/wp-content/uploads/2020/07/Cup-Of-Creamy-Coffee-1024x536.webp",
+                            IsTrendingProduct = true,
+                            Name = "Ethiopia",
+                            Price = 60m
                         });
                 });
 
@@ -116,7 +137,7 @@ namespace CoffeeShop.Migrations
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Qty")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<string>("ShoppingCartId")

@@ -23,7 +23,7 @@ namespace CoffeeShop.Models.Repositories
             {
                 var orderDetail = new OrderDetail
                 {
-                    Quantity = item.Qty,
+                    Quantity = item.Quantity,
                     ProductId = item.Product.Id,
                     Price = item.Product.Price
                 };

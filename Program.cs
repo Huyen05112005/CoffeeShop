@@ -1,33 +1,37 @@
-using CoffeeShop.Data;
+﻿using CoffeeShop.Data;
 using CoffeeShop.Models.Interfaces;
+using CoffeeShop.Models.Repositories; // thêm để dùng OrderRepository
 using CoffeeShop.Models.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Add code
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+})
+.AddEntityFrameworkStores<CoffeeShopDbContext>();
+
+builder.Services.AddDbContext<CoffeeShopDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CoffeeShopDbContextConnection")));
+
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IShoppingCartRepository>(sp => ShoppingCartRepository.GetCart(sp));
+builder.Services.AddScoped<IOrderRepository, OrderRepository>(); // 👈 bắt buộc để OrdersController hoạt động
 
-builder.Services.AddDbContext<CoffeeShopDbContext>(option =>
-option.UseSqlServer(builder.Configuration.GetConnectionString("CoffeeShopDbContextConnection")));
-
-//session
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<IShoppingCartRepository>(sp => ShoppingCartRepository.GetCart(sp));
 
 var app = builder.Build();
 
 app.UseSession();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -36,10 +40,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();

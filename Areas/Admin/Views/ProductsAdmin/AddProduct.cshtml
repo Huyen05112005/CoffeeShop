@@ -1,0 +1,43 @@
+@model CoffeeShop.Models.Product
+
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<h1 class="mb-4">Add New Product</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="AddProduct" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Detail" class="control-label"></label>
+                <textarea asp-for="Detail" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Detail" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check mb-3">
+                <input class="form-check-input" asp-for="IsTrendingProduct" />
+                <label class="form-check-label" asp-for="IsTrendingProduct"></label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add Product" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div> 

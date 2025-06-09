@@ -23,5 +23,24 @@ namespace CoffeeShop.Models.Services
         {
             return dbContext.Products.Where(p => p.IsTrendingProduct);
         }
+        public void AddProduct(Product product)
+        {
+            dbContext.Products.Add(product);
+            dbContext.SaveChanges();
+        }
+        public void UpdateProduct(Product product)
+        {
+            dbContext.Products.Update(product);
+            dbContext.SaveChanges();
+        }
+        public void DeleteProduct(int id)
+        {
+            var product = dbContext.Products.FirstOrDefault(p => p.Id == id);
+            if (product != null)
+            {
+                dbContext.Products.Remove(product);
+                dbContext.SaveChanges();
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace CoffeeShop.Models.Interfaces
 {
-    public class IOrderRepository
+    public interface IOrderRepository
     {
+        void PlaceOrder(Order order);
     }
 }
